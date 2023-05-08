@@ -100,6 +100,9 @@ const vote = (event) => {
 
     const popularityScore = document.querySelector(".p-score");
     popularityScore.innerText = `Popularity Score: ${popularity}`;
+
+    // Save status to local storage
+    localStorage.setItem("p-score", popularity);
 }
 
 
@@ -114,6 +117,9 @@ const postComment = () => {
     postedComment.innerText = inputText;
 
     postedCommentsContainer.appendChild(postedComment);
+
+    // Save status to local storage
+    localStorage.setItem("comments", postedCommentsContainer.innerHTML);
 }
 
 const getNewImage = () => {
@@ -128,6 +134,33 @@ const getNewImage = () => {
     // Clear the comments
     const postedCommentsContainer = document.querySelector(".posted-comments-container");
     postedCommentsContainer.innerHTML = "";
+
+    // Save the status to local storage
+    const catImage = document.querySelector("img");
+    localStorage.setItem("imageURL", catImage.src);
+}
+
+
+// const saveAppState = () => {
+//     const catImage = document.querySelector("img");
+//     const postedCommentsContainer = document.querySelector(".posted-comments-container");
+//     localStorage.setItem("imageURL", catImage.url);
+//     localStorage.setItem("comments", postedCommentsContainer.innerHTML);
+//     localStorage.setItem("p-score", popularity);
+// }
+
+
+export const restoreAppState = () => {
+    const catImage = document.querySelector("img");
+    const postedCommentsContainer = document.querySelector(".posted-comments-container");
+    const popularityScore = document.querySelector(".p-score");
+
+    if (localStorage.getItem("imageURL")) {
+        catImage.src = localStorage.getItem("imageURL");
+        postedCommentsContainer.innerHTML = localStorage.getItem("comments");
+        popularity = localStorage.getItem("p-score");
+        popularityScore.innerText = `Popularity Score: ${popularity}`;
+    }
 }
 
 
@@ -135,11 +168,12 @@ const getNewImage = () => {
 
 window.onload = () => {
     initializePage();
-    fetchImage();
+    // fetchImage();
     createMainContent();
     createGetNewImageButton();
     createPopularityScore();
     createVotingButtons();
     createComments();
     createPostedComments();
+    restoreAppState();
 };

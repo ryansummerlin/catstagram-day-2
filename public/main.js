@@ -12,10 +12,10 @@ export const createMainContent = () => {
     container.appendChild(h1);
     container.appendChild(img);
 
-    fetchImage();
+    // fetchImage();
 };
 
-const fetchImage = async () => {
+export const fetchImage = async () => {
     // Fetch image from API and set img url
     try {
         const kittenResponse = await fetch("https://api.thecatapi.com/v1/images/search?size=small");

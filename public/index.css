@@ -1,0 +1,42 @@
+
+body {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.comment {
+    margin: 3px;
+}
+
+.p-score {
+    display: flex;
+    justify-content: center;
+}
+
+.posted-comment {
+    margin: 10px;
+}
+
+.posted-comments-container {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 80%;
+}
+
+.voting-container {
+    display: flex;
+    justify-content: center;
+}
+
+.upvote, .downvote {
+    margin: 5px;
+}

@@ -122,9 +122,9 @@ const postComment = () => {
     localStorage.setItem("comments", postedCommentsContainer.innerHTML);
 }
 
-const getNewImage = () => {
+const getNewImage = async () => {
     // Fetch the new image
-    fetchImage();
+    const catImage = await(fetchImage());
 
     // Reset popularity
     popularity = 0;
@@ -136,44 +136,43 @@ const getNewImage = () => {
     postedCommentsContainer.innerHTML = "";
 
     // Save the status to local storage
-    const catImage = document.querySelector("img");
+    localStorage.setItem("imageURL", catImage.src);
+}
+
+const saveImageURL = async () => {
+    const catImage = await(fetchImage());
     localStorage.setItem("imageURL", catImage.src);
 }
 
 
-// const saveAppState = () => {
-//     const catImage = document.querySelector("img");
-//     const postedCommentsContainer = document.querySelector(".posted-comments-container");
-//     localStorage.setItem("imageURL", catImage.url);
-//     localStorage.setItem("comments", postedCommentsContainer.innerHTML);
-//     localStorage.setItem("p-score", popularity);
-// }
-
-
-export const restoreAppState = () => {
+const restoreAppState = () => {
     const catImage = document.querySelector("img");
     const postedCommentsContainer = document.querySelector(".posted-comments-container");
     const popularityScore = document.querySelector(".p-score");
 
-    if (localStorage.getItem("imageURL")) {
-        catImage.src = localStorage.getItem("imageURL");
-        postedCommentsContainer.innerHTML = localStorage.getItem("comments");
-        popularity = localStorage.getItem("p-score");
-        popularityScore.innerText = `Popularity Score: ${popularity}`;
-    }
+    catImage.src = localStorage.getItem("imageURL");
+    postedCommentsContainer.innerHTML = localStorage.getItem("comments");
+    popularity = Number(localStorage.getItem("p-score"));
+    popularityScore.innerText = `Popularity Score: ${popularity}`;
+
 }
 
-
-
-
-window.onload = () => {
+const masterFunction = () => {
     initializePage();
-    // fetchImage();
     createMainContent();
     createGetNewImageButton();
     createPopularityScore();
     createVotingButtons();
     createComments();
     createPostedComments();
-    restoreAppState();
-};
+    if (localStorage.getItem("imageURL")) {
+        restoreAppState();
+    } else {
+        saveImageURL();
+    }
+
+}
+
+window.onload = () => {
+    masterFunction();
+}

@@ -1,3 +1,4 @@
+
 export const createMainContent = () => {
     // Create h1
     const h1 = document.createElement("h1");
@@ -12,7 +13,7 @@ export const createMainContent = () => {
     container.appendChild(h1);
     container.appendChild(img);
 
-    fetchImage();
+    // fetchImage();
 };
 
 export const fetchImage = async () => {
@@ -24,6 +25,7 @@ export const fetchImage = async () => {
         // console.log(kittenData);
         const kittenImg = document.querySelector("img");
         kittenImg.src = kittenData[0].url;
+        return kittenImg;
     } catch (e) {
         console.log("Failed to fetch image", e);
     }
